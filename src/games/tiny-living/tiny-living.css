@@ -1,0 +1,44 @@
+/* Game-scoped styles. Everything is nested under .tl-root so nothing leaks into the studio site. */
+.tl-root {
+  --tl-wall: #f7e7a0;
+  --tl-floor: #e9dcbc;
+  --tl-ink: #182943;
+  --tl-paper: #f4f1e9;
+  color: var(--tl-ink);
+  background:
+    linear-gradient(to bottom, var(--tl-wall) 0 68%, var(--tl-floor) 68% 100%);
+  font-family: var(--font-sans, system-ui, sans-serif);
+}
+.tl-root .tl-card {
+  background: var(--tl-paper);
+  border: 2px solid var(--tl-ink);
+  border-radius: 6px;
+  box-shadow: 6px 6px 0 var(--tl-ink);
+}
+.tl-root .tl-tape {
+  background: repeating-linear-gradient(-45deg, var(--tl-ink) 0 12px, var(--tl-wall) 12px 24px);
+  height: 12px;
+}
+.tl-root dt {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.tl-root .tl-btn {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 2px solid var(--tl-ink);
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.tl-root .tl-btn:hover {
+  background: var(--tl-ink);
+  color: var(--tl-paper);
+}
+.tl-root .tl-btn:focus-visible {
+  outline: 3px solid var(--tl-ink);
+  outline-offset: 3px;
+}

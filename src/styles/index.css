@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Elsewhere Dept. — design tokens
+   8px spacing rhythm: prefer Tailwind steps 2, 4, 6, 8, 10, 12, 16, 20, 24…
+   ------------------------------------------------------------------ */
+@theme {
+  --color-ink: #182943;
+  --color-ink-soft: #45526a; /* secondary text, 7.1:1 on paper */
+  --color-butter: #f7e7a0;
+  --color-paper: #f4f1e9;
+  --color-paper-deep: #ebe6d9;
+  --color-sage: #a8bfae;
+  --color-sage-deep: #3f5a48; /* text-safe sage, 6.6:1 on paper */
+  --color-coral: #ee775e; /* decorative only on paper (2.9:1) */
+  --color-coral-deep: #a63d26; /* text-safe coral, 5.6:1 on paper */
+  --color-rule: rgb(24 41 67 / 0.16);
+
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --ease-department: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-portal-spin: portal-spin 60s linear infinite;
+  --animate-portal-breathe: portal-breathe 6s ease-in-out infinite;
+
+  @keyframes portal-spin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes portal-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.94); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-butter);
+    color: var(--color-ink);
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+
+  /* Visible, consistent focus ring. Dark sections flip it via .on-ink */
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .on-ink :focus-visible {
+    outline-color: var(--color-butter);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-dept {
+    @apply mx-auto w-full max-w-[1440px] px-6 md:px-10;
+  }
+  .meta {
+    @apply font-mono text-[0.75rem] uppercase leading-none tracking-[0.12em];
+  }
+  .rule {
+    border-color: var(--color-rule);
+  }
+  /* Editorial link underline that draws in on hover */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 400ms var(--ease-department);
+  }
+  .link-draw:hover,
+  .link-draw[aria-current="page"] {
+    background-size: 100% 1px;
+  }
+  /* A subtle paper grain, pure CSS, no image request */
+  .paper-grain {
+    background-image: radial-gradient(rgb(24 41 67 / 0.05) 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+}
